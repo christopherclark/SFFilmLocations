@@ -22,7 +22,7 @@ header{
   height: 430px;
   margin: 50px 20px;
   display: inline-block;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 10px;
 }
 

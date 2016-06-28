@@ -34,9 +34,9 @@ var coordArray = [];
 app.post('/markers', function (req, res, next) {
   //empty coordinate array 
   coordArray = [];
-  console.log('request body',req.body);
   var promises = [];
-  //load an array of promises for each coordinate in the request
+
+  console.log('request body',req.body);//load an array of promises for each coordinate in the request
   req.body.forEach(function(x){
     promises.push(placesReq(x));
   });
@@ -46,7 +46,7 @@ app.post('/markers', function (req, res, next) {
     setTimeout(function() {
       console.log('results: ', coordArray);
       res.send(coordArray);
-    }, 1000);
+    }, 2000);
   }).catch(function(reason) {
     console.log(reason);
     res.send(reason);

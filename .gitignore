@@ -1,4 +1,4 @@
-#Holds bower installed files
+
 bower_components/
 
 node_modules/

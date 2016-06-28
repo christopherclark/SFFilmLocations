@@ -1,4 +1,4 @@
-var app = angular.module('filmLocations', ['ngMaterial','autofill-directive'])
+var app = angular.module('filmLocations', ['autofill-directive'])
 
 app.controller('DataCtrl', function($scope, $rootScope, $http) {
     
@@ -126,7 +126,13 @@ app.controller('MapCtrl', function($scope, $rootScope, $http) {
                         long: res.data[i].lng
                     };
                     console.log('marker info:', info);
-                    createMarker(info);
+                    if(info.name !== null){
+                        createMarker(info);
+                    } else {
+                        console.log('google maps failed to find location');
+                        $scope.error = "Location could not be found";
+                    }
+                    
                 }
             });
     });
