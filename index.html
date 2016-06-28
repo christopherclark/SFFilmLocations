@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/public/styles.css">
+    <link rel="stylesheet" href="/public/autoComplete/auto-complete.css">
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.js"></script>
+  </head>
+
+  <body ng-app="filmLocations">
+    <header>
+      <h2>Film shoot locations in San Francisco</h2>
+    </header>
+
+    <div id="inputForm" ng-controller="DataCtrl" ng-cloak>
+      <form autofill-submit="searchTitles()">
+        <input autofill id="text" type="text" ng-model="title" placeholder="Search Film Titles">
+        <input id= "submit" type="submit">
+      </form>
+    </div>    
+
+    <div id="map" ng-controller="MapCtrl">
+      <div ng-repeat="marker in markers">
+         <a href="#" ng-click="openInfoWindow($event, marker)"></a>
+      </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7bLeLKQlpKt6Z-1oA2cNOKRZ4Kw8NHng"></script>
+    <script type="text/javascript" src="/bower_components/lodash/dist/lodash.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/autofill-directive/autofill-directive.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-aria/angular-aria.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-material/angular-material.min.js"></script>
+    <script type="text/javascript" src="/public/autoComplete/auto-complete.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    <script src="/public/app.js"></script>
+
+  </body>
+
+</html>

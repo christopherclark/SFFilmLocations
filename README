@@ -1,0 +1,29 @@
+This is a simple mash-up between San Francisco film locations (SF OpenData) and Google Maps.
+Built with Node.js, Angular, and Express, this is a classic MEAN stack application (sans database), 
+in which users can input the titles of films shot in SF, and populate a map with markers representing
+the locations where the film was shot.  
+
+This is an MVP.  Were I to spend more time on this, I would style the front-end, and include other information on the markers (photos of the location?), and a template where we can see more information about the movie (perhaps pulling from another API, maybe Rotten Tomatoes).  
+
+Bugs: 
+-The largest inherent problem with this project stems from the unformatted data-set.  Some locations are actual addresses, or major landmarks (i.e. 'Coit Tower'), but others are rather vague ('skyline/exterior scenes') or blank, and do not return coordinates from the Google Places API.  The unformatted data often confuses the Google Places API... "Mason & California Streets (Nob Hill)", for instance, returns coordinates for Fort Mason.  "California & Grant Streets" returns coordinates just south of the SF ZOO (?)
+
+-The autocomplete shows some duplicate tags.  The array it is being fed does not.  This is a mystery to me, but not a particularly obnoxious one.  
+
+-The API allows for 1000 requests per day.  This can easily be exceeded (very easily while developing), as every location is a seperate request, and some films have 10+ locations listed. 
+
+
+Challenges:
+-Autocompletion can cause some peculiar behavior in Angular.  When I would click on an autocomplete tag, it would populate the text input with the full tag, but upon submitting, Angular would only register what was originally typed before selecting the autocomplete tag.
+The "autofill-directive" bower component fixed this, thanks to: https://github.com/chesleybrown/autofill-directive
+
+-I am using Promise.all() for the lat/long calls to the google places api.  This returned the array unordered, since those promises were run synchronously (this seems obvious in hindsight).   So, I had two possible solutions for this.  Dynamically generate sequential promises for every request (nested callbacks would also work), or, simply return the place name with the coordinates, so that the order was irrelevant.  I chose the latter.  
+
+
+
+
+
+
+www.linkedin.com/in/clarkchris1
+
+www.github.com/christopherclark

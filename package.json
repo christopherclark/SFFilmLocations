@@ -1,0 +1,19 @@
+{
+  "name": "SFMovieScenes",
+  "version": "0.0.0",
+  "description": "",
+  "main": "server/server.js",
+  "author": "chris clark",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "postinstall": "bower install"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cors": "^2.7.1",
+    "express": "4.13.3",
+    "morgan": "1.7.0",
+    "path": "^0.12.7",
+    "request": "2.72.0"
+  }
+}

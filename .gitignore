@@ -1,0 +1,8 @@
+#Holds bower installed files
+bower_components/
+
+node_modules/
+
+public/autoComplete/
+
+server/config.js
