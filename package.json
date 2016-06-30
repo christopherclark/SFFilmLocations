@@ -6,9 +6,10 @@
   "author": "chris clark",
   "scripts": {
     "start": "node server/server.js", 
-    "postinstall": "bower install"
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "dependencies": {
+    "bower": "1.7.9",
     "body-parser": "^1.15.2",
     "express": "4.13.3",
     "path": "^0.12.7",
