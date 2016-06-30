@@ -98,7 +98,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $http) {
         //server will send a request to Google places, and, upon
         //receipt, should respond with and array latitudes and longitudes
         //which match the place names.
-        $http.post('http://localhost:3000/markers', $rootScope.locations)
+        $http.post('/markers', $rootScope.locations)
             .success(function(data){
                 //console.log('success', data);
             }).error(function(data, status){
