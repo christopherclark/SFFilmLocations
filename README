@@ -17,6 +17,8 @@ Bugs:
 -The API allows for 1000 requests per day.  This can easily be exceeded (very easily while developing), as every location is a seperate request, and some films have 10+ locations listed. 
 
 
+
+
 Thanks for taking the time to check this out!  Any feedback is greatly appreciated.  
 
 -Chris Clark

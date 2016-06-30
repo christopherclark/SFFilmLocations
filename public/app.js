@@ -1,16 +1,13 @@
 var app = angular.module('filmLocations', ['autofill-directive'])
 
+
 app.controller('SearchCtrl', function($scope, $rootScope, $http) {
-
     (function loadTags(){
-
-
-    $scope.filmTitle = "";
-    $scope.intro = "";
-    $scope.locations = [];
-        //Populates autocomplete fields by makeing an initial call to SFDATA api, 
-        //parses through movie titles and eliminates duplicate entries
-
+        $scope.filmTitle = "";
+        $scope.intro = "";
+        $scope.locations = [];
+        //IIFE populates autocomplete fields by making an initial call to SF Open Data api, 
+        //parsing through movie titles and eliminating duplicate entries
         $http.get("https://data.sfgov.org/resource/wwmu-gmzc.json?")
         .then(function(res){
             var movies = [res.data[0].title], len = res.data.length;
@@ -22,14 +19,6 @@ app.controller('SearchCtrl', function($scope, $rootScope, $http) {
             }
             $scope.filmNames = movies;
             console.log(movies.length + " movies available", $scope.filmNames);
-            
-            //alternative JQuery autocomplete
-           // $(function() {
-           //      $( "#text" ).autocomplete({
-           //        source: $scope.filmNames
-           //      });
-           //  });
-
             new autoComplete({
                 selector: 'input[id="text"]',
                 minChars: 1,
@@ -42,7 +31,6 @@ app.controller('SearchCtrl', function($scope, $rootScope, $http) {
                     suggest(matches);
                 }
             });
-
         })
     })()
 
@@ -67,8 +55,6 @@ app.controller('SearchCtrl', function($scope, $rootScope, $http) {
             } else {
                $scope.intro = "was filmed at:"; 
             }
-            
-         //   $scope.locations = places;
             console.log($scope.title + " was filmed in these locations: ", $rootScope.locations);
             $rootScope.$emit('rootScope:emit', 'MapCtrl, would you mind changing the markers? Thanks.');
         });
@@ -78,18 +64,10 @@ app.controller('SearchCtrl', function($scope, $rootScope, $http) {
 
 
 app.controller('MapCtrl', function($scope, $rootScope, $http) {
-
     var sfCenter = {lat: 37.78, lng: -122.42};
-    var mapOptions = {
-        center: sfCenter,
-        zoom: 11,
-        minZoom: 11,
-        maxZoom: 16
-    };
-
+    var mapOptions = { center: sfCenter, zoom: 11, minZoom: 11, maxZoom: 16 };
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
     $scope.markers = [];
-
     var infoWindow = new google.maps.InfoWindow();
     
     var createMarker = function (info){
@@ -98,14 +76,12 @@ app.controller('MapCtrl', function($scope, $rootScope, $http) {
             position: new google.maps.LatLng(info.lat, info.long),
             title: info.name
         });
-        //marker.content = '<div class="infoWindowContent">' + info.title + '</div>';
         google.maps.event.addListener(marker, 'click', function(){
             infoWindow.setContent('<h3>' + marker.title + '</h3>');
             infoWindow.open($scope.map, marker);
         });
         $scope.markers.push(marker);
     };
-
     var setMapOnAll = function(map) {
         for (var i = 0; i < $scope.markers.length; i++) {
           $scope.markers[i].setMap(map);
@@ -118,7 +94,6 @@ app.controller('MapCtrl', function($scope, $rootScope, $http) {
     }
 
     $rootScope.$on('rootScope:emit', function (event, data){
-    
         //on emit, query the server with locations array
         //server will send a request to Google places, and, upon
         //receipt, should respond with and array latitudes and longitudes
@@ -135,7 +110,6 @@ app.controller('MapCtrl', function($scope, $rootScope, $http) {
                 var len = res.data.length;
                 $scope.markers = [];
                 for(var i = 0; i < len; i++){
-                   // var info = res.data;
                     var info = {
                         name: res.data[i].name,
                         lat: res.data[i].lat, 
@@ -147,8 +121,7 @@ app.controller('MapCtrl', function($scope, $rootScope, $http) {
                     } else {
                         console.log('google maps failed to find location');
                         $scope.error = "Location could not be found";
-                    }
-                    
+                    } 
                 }
             });
     });
