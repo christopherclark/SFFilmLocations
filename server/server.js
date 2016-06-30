@@ -46,7 +46,7 @@ app.post('/markers', function (req, res, next) {
     setTimeout(function() {
       console.log('results: ', coordArray);
       res.send(coordArray);
-    }, 2000);
+    }, 1500);
   }).catch(function(reason) {
     console.log(reason);
     res.send(reason);

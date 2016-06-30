@@ -5,21 +5,27 @@
     <link rel="stylesheet" href="/public/autoComplete/auto-complete.css">
   </head>
 
-  <body ng-app="filmLocations">
+  <body ng-cloak ng-app="filmLocations" >
     <header>
       <h2>Film shoot locations in San Francisco</h2>
     </header>
 
-    <div id="inputForm" ng-controller="DataCtrl" ng-cloak>
+    <div id="inputForm" ng-controller="SearchCtrl" ng-cloak>
       <form autofill-submit="searchTitles()">
-        <input autofill id="text" type="text" ng-model="title" placeholder="Search Film Titles">
+        <input autofill id="text" type="text" ng-model="input" placeholder="Search Film Titles">
         <input id= "submit" type="submit">
       </form>
+      <h3>{{filmTitle}}</h3>
+      <p>{{intro}}</p>
+      <ul>
+        <li ng-repeat="location in locations">{{location}}</li>
+      </ul>
     </div>    
-
-    <div id="map" ng-controller="MapCtrl">
-      <div ng-repeat="marker in markers">
-         <a href="#" ng-click="openInfoWindow($event, marker)"></a>
+    <div ng-controller="MapCtrl">{{error}}
+      <div id="map" >
+        <div ng-repeat="marker in markers">
+           <a href="#" ng-click="openInfoWindow($event, marker)"></a>
+        </div>
       </div>
     </div>
 

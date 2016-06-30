@@ -18,8 +18,8 @@ header{
 }
 
 #map {
-  width: 430px;
-  height: 430px;
+  width: 360px;
+  height: 360px;
   margin: 50px 20px;
   display: inline-block;
   border: 1px solid black;
@@ -31,4 +31,8 @@ header{
 	width: 80px;
 	height: 40px;
 	font-size: 1.02em;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
 }

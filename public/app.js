@@ -1,8 +1,13 @@
 var app = angular.module('filmLocations', ['autofill-directive'])
 
-app.controller('DataCtrl', function($scope, $rootScope, $http) {
-    
+app.controller('SearchCtrl', function($scope, $rootScope, $http) {
+
     (function loadTags(){
+
+
+    $scope.filmTitle = "";
+    $scope.intro = "";
+    $scope.locations = [];
         //Populates autocomplete fields by makeing an initial call to SFDATA api, 
         //parses through movie titles and eliminates duplicate entries
 
@@ -42,17 +47,28 @@ app.controller('DataCtrl', function($scope, $rootScope, $http) {
     })()
 
     $scope.searchTitles = function () {
+        $scope.locations = [];
+        $scope.intro = "";
         //on form submission, queries SFDATA for all locations for submitted title
         //upon receipt, assigns $rootScope variable to the returned array and emits
         //an event which the map controller is listening for
-
-        $http.get("https://data.sfgov.org/resource/wwmu-gmzc.json?title="+$scope.title)
+        $scope.filmTitle = $scope.input;
+        $http.get("https://data.sfgov.org/resource/wwmu-gmzc.json?title="+$scope.input)
         .then(function(res){ 
             var places = [], len = res.data.length;
             for(var i = 0; i < len; i++){
-                places.push(res.data[i].locations);
+                if(res.data[i].locations){
+                     $scope.locations.push(res.data[i].locations);
+                }
             }
-            $rootScope.locations = places;
+            $rootScope.locations = $scope.locations;
+            if($scope.locations.length === 0){
+                $scope.intro = "No locations could be found";
+            } else {
+               $scope.intro = "was filmed at:"; 
+            }
+            
+         //   $scope.locations = places;
             console.log($scope.title + " was filmed in these locations: ", $rootScope.locations);
             $rootScope.$emit('rootScope:emit', 'MapCtrl, would you mind changing the markers? Thanks.');
         });
